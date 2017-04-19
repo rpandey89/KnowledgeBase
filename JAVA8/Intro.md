@@ -26,7 +26,7 @@ chained together much like Unix commands. Advantages:
 for free
 - Prevents obscurity involved with processing collections and difficulty leveraging multicore CPUs
 - Collections and Streams both provide access to sequence of items
-- However, Collections is about sotring and accessing the items whereas Streams describe the computations to be done on
+- However, Collections is about storing and accessing the items whereas Streams describe the computations to be done on
 those items
 - Streams can be used to perform sequential as well as parallel operations
 

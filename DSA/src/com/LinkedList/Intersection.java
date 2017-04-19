@@ -8,7 +8,7 @@ import com.LinkedList.utils.LinkList;
  */
 public class Intersection {
 
-    private static Node getIntersection(Node head1, Node head2, Node tail1, Node tail2, int length1, int length2) {
+    public static Node getIntersection(Node head1, Node head2, Node tail1, Node tail2, int length1, int length2) {
         if (head1 == null || head2 == null) return null;
         //if tails not similar then diff lists
         if (tail1 != tail2) return null;

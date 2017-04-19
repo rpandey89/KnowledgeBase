@@ -9,135 +9,37 @@ import java.util.ArrayList;
  */
 public class FlipString {
 
+    //the idea is to flip 0's to 1 and 1's to -1
+    //to maximize number of 1s we have to find sub array with maximum sum
+    //for that we use Kadane's algo
     private static ArrayList<Integer> flip(String A) {
-        int length = A.length();
         ArrayList<Integer> indices = new ArrayList<>();
-        if(length == 1) return indices;
-        int count = 0;
-        for(int i=0; i< length; i++) {
-            if(Integer.parseInt(String.valueOf(A.charAt(i))) == 1) count++;
-        }
-        if(count == length) return indices;
-        int sum = Integer.parseInt(String.valueOf(A.charAt(0)));
-        sum = sum == 1 ? -1 : 1;
-        int startIndex = 0, currMax = sum, prevSum = sum, endIndex = 0;
-        for (int i = 1; i < length; i++) {
-            int num = Integer.parseInt(String.valueOf(A.charAt(i)));
-            num = num == 1 ? -1 : 1;
-            sum = sum + num;
-            if (currMax < num) {
-                currMax = num;
-                if (startIndex != i + 1 && sum < currMax) {
-                    startIndex = i;
-                    sum = Math.max(currMax, sum);
+        if(A != null && A.trim().length() > 0) {
+            int currStart = 0, currEnd = 0, currSum = 0, maxSum = 0, maxEnd = -1, maxStart = -1;
+            while(currEnd < A.length()) {
+                currSum += ((A.charAt(currEnd) - '0') == 0 ? 1 : -1);
+                if(currSum < 0) {
+                    currSum = 0;
+                    currStart = currEnd + 1;
+                } else {
+                    if(maxSum < currSum) {
+                        maxSum = currSum;
+                        maxStart = currStart;
+                        maxEnd = currEnd;
+                    }
                 }
+                currEnd++;
             }
-            if (prevSum < sum) {
-                prevSum = sum;
-                endIndex = i;
+            if(maxSum >=0 && maxEnd > -1) {
+                indices.add(maxStart + 1);
+                indices.add(maxEnd + 1);
             }
         }
-        indices.add(startIndex + 1);
-        indices.add(endIndex + 1);
         return indices;
-
     }
 
     public static void main(String[] args) {
         ArrayFormation.displayArrayList(flip("0111000100010"));
-        //01110101011111
-        //0111000100010
-        //Work In Progress
     }
 
 }
-
-/*
-public class Solution {
-
-    public ArrayList<Integer> flip(String A) {
-
-        char[] nums= A.toCharArray();
-
-        ArrayList<Integer> result = new ArrayList<Integer>();
-
-        if(isAllOnes(nums))
-
-            return result;
-
-
-
-        // Left, Right, Max
-
-        int L=0,R=0,max =0;
-
-
-
-        // Current Left, Current Right, current Max;
-
-        int cL =0,cR=0,currentMax = 0;
-
-        for(int i=0;i<nums.length;i++) {
-
-            currentMax = currentMax + (nums[i] == '0'? 1: -1);
-
-            // if currentMax is greater than zero, currentRight should be I
-
-            // in order to pass it to the Right when currentMax> Max  (during the future iterations)
-
-            if(currentMax>=0)
-
-                cR = i;
-
-            //  currentMax is zero, so currentLeft should begin with i+1
-
-            //  in order to pass it to the Left, when currentMax > max (during the future iterations)
-
-            else {
-
-                currentMax =0;
-
-                cL = i+1;
-
-            }
-
-            if(currentMax>max) {
-
-                max = currentMax;
-
-                L = cL;
-
-                R = cR;
-
-            }
-
-        }
-
-        result.add(L+1);
-
-        result.add(R+1);
-
-        return result;
-
-
-
-    }
-
-
-
-    public boolean isAllOnes(char[] nums) {
-
-        for(int i = 0;i<nums.length;i++) {
-
-            if(nums[i]=='0') return false;
-
-        }
-
-        return true;
-
-    }
-
-}
-
-
-* */

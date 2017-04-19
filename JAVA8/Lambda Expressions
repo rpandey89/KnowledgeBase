@@ -1,0 +1,106 @@
+#Lambdas
+
+A concise representation of an anonymous function that can be passed around: it does not have a name, but it has a list 
+of parameters, a body, a return type, and also possibly a list of exceptions that can be thrown.
+
+- Anonymous : We say anonymous because it doesn’t have an explicit name like a method would normally have: less to write 
+and think about!
+- Function : We say function because a lambda isn’t associated with a particular class like a method is. But like a 
+method, a lambda has a list of parameters, a body, a return type, and a possible list of exceptions that can be thrown.
+- Passed around : A lambda expression can be passed as argument to a method or stored in a variable.
+- Concise : You don’t need to write a lot of boilerplate like you do for anonymous classes.
+
+Syntax:
+```
+(parameters) -> expression
+or
+(parameters) -> { statements; }
+```
+
+Before:
+```
+Comparator<Apple> byWeight = new Comparator<Apple>() {
+    public int compare(Apple a1, Apple a2){
+        return a1.getWeight().compareTo(a2.getWeight());
+    }
+};
+```
+
+After (with lambda expressions):
+```
+Comparator<Apple> byWeight =
+    (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight());
+
+(Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight());
+        |                               |
+    parameters                         body
+```
+
+Examples:
+
+```
+Use case                               Examples of lambdas
+A boolean expression                   (List<String> list) -> list.isEmpty()
+Creating objects                       () -> new Apple(10)
+Consuming from an object               (Apple a) -> {System.out.println(a.getWeight());}
+Select/extract from an object          (String s) -> s.length()
+Combine two values                     (int a, int b) -> a * b
+Compare two objects                    (Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight())
+```
+
+# Functional Interface
+A functional interface is an interface that specifies exactly one abstract method. An interface is still a functional 
+interface if it has many default methods as long as it specifies only one abstract method. Though if an interface with 
+one abstract method and one from inherited interface is not a functional interface.
+For e.g.
+
+```
+public interface Comparator<T> {
+    int compare(T o1, T o2);
+}
+
+public interface Runnable {
+    void run();
+}
+
+public interface Callable<V> {
+    V call();
+}
+
+//this is not a functional interface
+public interface MyComparator<T> extends Comparator {
+    int compare2(T o1, T o2, T o3);
+}
+```
+
+Lambda expressions let you provide the implementation of the abstract method of a functional interface directly inline 
+and treat the whole expression as an instance of a functional interface. You can achieve the same thing with an 
+anonymous inner class, although it’s clumsier: you provide an implementation and instantiate it directly inline.
+
+Note: Lambda expression should match with the signature of the abstract method of functional interface.
+
+
+# Functional Descriptor
+
+The signature of the abstract method of the functional interface essentially describes the signature of the lambda 
+expression. We call this abstract method a function descriptor.
+
+
+```
+Functional interface	Function descriptor	    Primitive specializations
+Predicate<T>  	        T -> boolean	        IntPredicate, LongPredicate, DoublePredicate
+Consumer<T>  	        T -> void	            IntConsumer, LongConsumer, DoubleConsumer
+Function<T, R>  	    T -> R	                IntFunction<R>, IntToDoubleFunction, IntToLongFunction, 
+                                                LongFunction<R>, LongToDoubleFunction,
+                                                LongToIntFunction, DoubleFunction<R>, ToIntFunction<T>,
+                                                ToDoubleFunction<T>, ToLongFunction<T>
+Supplier<T>	            () -> T 	            BooleanSupplier, IntSupplier, LongSupplier, DoubleSupplier
+UnaryOperator<T>        T -> T	                IntUnaryOperator, LongUnaryOperator, DoubleUnaryOperator, UnaryOperator<T>  
+BinaryOperator<T> 	    (T, T) -> T 	        IntBinaryOperator, LongBinaryOperator, DoubleBinaryOperator
+BiPredicate<L, R>       (L, R) -> boolean	
+BiConsumer<T, U>  	    (T, U) -> void	        ObjIntConsumer<T>, ObjLongConsumer<T>,ObjDoubleConsumer<T>
+BiFunction<T, U, R>	    (T, U) -> R 	        ToIntBiFunction<T, U>, ToLongBiFunction<T, U>,ToDoubleBiFunction<T, U>
+```
+
+
+@FunctionalInterface annotation provided in Java API

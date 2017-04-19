@@ -8,7 +8,7 @@ import com.LinkedList.utils.Node;
  */
 public class LoopDetection {
 
-    private static Node getLoopStartNode(Node head) {
+    public static Node getLoopStartNode(Node head) {
         if (head == null || head.next == null) return null;
         Node slow = head;
         Node fast = head;
