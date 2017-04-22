@@ -1,4 +1,8 @@
-#DSA/build/
-#JAVA8/build/
-#.idea/
-
+DSA/build/
+JAVA8/build/
+.idea/
+Servers
+.metadata
+RemoteSystemsTempFiles
+SPRING/.idea
+SPRING/target
