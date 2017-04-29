@@ -34,7 +34,7 @@ public class StackWithMaxElementCount {
     public Integer pop() {
         if (isEmpty()) throw new IllegalStateException();
         if (maxStack.peek().max == peek()) {
-            maxStack.peek().count += 1;
+            maxStack.peek().count -= 1;
         }
         return stack.pop();
     }

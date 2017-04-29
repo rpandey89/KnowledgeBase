@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init" default-destroy-method="clean"
+>
+
+    <bean id="addressFactory" class="com.knowledgebase.spring.tutorial.factory.AddressFactory"/>
+    <bean id="person" class="com.knowledgebase.spring.tutorial.beans.Person" scope="prototype" init-method="onCreate"
+          destroy-method="destroy">
+        <constructor-arg name="id" index="0" type="int" value="100"/>
+        <constructor-arg name="name" index="1" type="java.lang.String" value="Mary"/>
+        <property name="taxId" value="1234">
+            <!--<value>45678</value>-->
+        </property>
+        <property name="address" ref="address"/>
+    </bean>
+
+    <bean id="person1" class="com.knowledgebase.spring.tutorial.beans.Person" scope="prototype" init-method="onCreate"
+          destroy-method="destroy">
+        <constructor-arg name="id" index="0" type="int" value="101"/>
+        <constructor-arg name="name" index="1" type="java.lang.String" value="John"/>
+        <property name="taxId" value="12345">
+            <!--<value>45678</value>-->
+        </property>
+        <property name="address" ref="address1"/>
+    </bean>
+
+    <bean id="person2" class="com.knowledgebase.spring.tutorial.beans.Person" scope="prototype" init-method="onCreate"
+          destroy-method="destroy">
+        <constructor-arg name="id" index="0" type="int" value="102"/>
+        <constructor-arg name="name" index="1" type="java.lang.String" value="Steve"/>
+        <property name="taxId" value="12346">
+            <!--<value>45678</value>-->
+        </property>
+        <property name="address" ref="address2"/>
+    </bean>
+
+    <bean id="address" class="com.knowledgebase.spring.tutorial.beans.Address">
+        <constructor-arg name="street" value="3040 Flores Street"/>
+        <constructor-arg name="city" value="San Mateo"/>
+        <constructor-arg name="postCode" value="94403"/>
+    </bean>
+
+    <bean id="address1" class="com.knowledgebase.spring.tutorial.beans.Address" factory-method="localCreateAddress">
+        <constructor-arg name="street" value="2175 Hillsdale Blvd"/>
+        <constructor-arg name="city" value="San Mateo"/>
+        <constructor-arg name="postCode" value="94402"/>
+    </bean>
+
+    <!--We don't need a class attribute in this case-->
+    <bean id="address2" factory-bean="addressFactory" factory-method="createAddress">
+        <constructor-arg name="street" value="1800 Gateway Drive"/>
+        <constructor-arg name="city" value="Foster City"/>
+        <constructor-arg name="postalCode" value="94404"/>
+    </bean>
+
+    <bean id="address3" class="com.knowledgebase.spring.tutorial.beans.Address" p:street="abc" p:city="SM"
+          p:postalCode="1234"/>
+
+    <bean id="fruitBasket" class="com.knowledgebase.spring.tutorial.beans.FruitBasket">
+        <constructor-arg name="name" value="evergreen"/>
+        <constructor-arg name="basket">
+            <!--we can use set too here that will ignore duplicate element-->
+            <list>
+                <value>apple</value>
+                <value>orange</value>
+                <value>grapes</value>
+                <value>banana</value>
+                <value>guava</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="jungle" class="com.knowledgebase.spring.tutorial.beans.Jungle">
+        <property name="largest" ref="elephant"/>
+        <property name="animals">
+            <list>
+                <ref bean="elephant"/>
+                <ref bean="bear"/>
+                <ref bean="lion"/>
+            </list>
+
+        </property>
+
+    </bean>
+    <!--it will look for a default constructor when defining the class attribute if we don't provide a constructor - arg-->
+    <bean id="elephant" class="com.knowledgebase.spring.tutorial.beans.Animal">
+        <constructor-arg name="name" value="Mira"/>
+        <constructor-arg name="type" value="Elephant"/>
+    </bean>
+    <bean id="bear" class="com.knowledgebase.spring.tutorial.beans.Animal">
+        <constructor-arg name="name" value="Baloo"/>
+        <constructor-arg name="type" value="Bear"/>
+    </bean>
+    <bean id="lion" class="com.knowledgebase.spring.tutorial.beans.Animal">
+        <constructor-arg name="name" value="Shera"/>
+        <constructor-arg name="type" value="Lion"/>
+    </bean>
+</beans>
