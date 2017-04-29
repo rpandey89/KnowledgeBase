@@ -183,7 +183,7 @@ has sort method. However, ArrayList class does not have to implement that method
 
 This feature provides multiple inheritance upto a certain extent.
 
-#Other good ideas
+# Other good ideas
 
 - Optional<T> - In Java 8 there’s an Optional<T> class that, if used consistently, can help you avoid NullPointer
                 exceptions. It’s a container object that may or not contain a value. Optional<T> includes

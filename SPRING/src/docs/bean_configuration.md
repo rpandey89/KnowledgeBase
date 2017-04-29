@@ -62,7 +62,7 @@ The properties can also be set using p attribute
 There are <list/> and <set/> properties which allow duplicate and non-duplicate entries respectively. Primitive values
 can be set using <value> tag and beans can be set using <ref> tag.
 
-#Inner Beans
+# Inner Beans
 Beans can be defined as properties or constructor arguments inside another bean. There is no need to provide ids in that
 case. In addition, we have to redefine it if that bean is used elsewhere in the configuration.
 

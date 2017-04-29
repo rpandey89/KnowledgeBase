@@ -1,4 +1,4 @@
-#Lambdas
+# Lambdas
 
 A concise representation of an anonymous function that can be passed around: it does not have a name, but it has a list 
 of parameters, a body, a return type, and also possibly a list of exceptions that can be thrown.
@@ -102,7 +102,7 @@ expression. We call this abstract method a function descriptor.
 
 @FunctionalInterface annotation provided in Java API
 
-#Functional Interfaces
+# Functional Interfaces
 
 - Predicate
 The java.util.function.Predicate<T> interface defines an abstract method named test that
@@ -114,7 +114,7 @@ takes an object of generic type T and returns no result (void).
 The java.util.function.Function<T, R> interface defines an abstract method named apply that
 takes an object of generic type T as input and returns an object of generic type R.
 
-#Primitive specializations
+# Primitive specializations
 
 - Refresher
 
@@ -147,7 +147,7 @@ Predicate<Integer> oddNumber = (Integer i) -> i % 2 == 1; //false
 evenNumbers.test(1000);
 ```
 
-#Exception Handling
+# Exception Handling
 None of the functional interfaces allow checked exception to be thrown. We have two options
 1. Define a functional interface that throws checked exception
 1. Wrap the code in lambda with try and catch
@@ -171,7 +171,7 @@ Function<BufferedReader, String> f =
 };
 ```
 
-#Type Checking
+# Type Checking
 The type-checking process is deconstructed as follows:
 - First, you look up the declaration of the filter method.
 - Second, it expects as the second formal parameter an object of type Predicate-<Apple> (the target
@@ -185,7 +185,7 @@ The code is valid because the lambda expression that we’re passing also takes 
 parameter and returns a boolean. Note that if the lambda expression were throwing an
 exception, then the declared throws clause of the abstract method would also have to match.
 
-#Same Lambda different functional interfaces
+# Same Lambda different functional interfaces
 Because of the idea of target typing, the same lambda expression can be associated with
 different functional interfaces if they have a compatible abstract method signature. For example,
 both interfaces Callable and PrivilegedAction described earlier represent functions that accept
@@ -195,7 +195,7 @@ nothing and return a generic type T. The following two assignments are therefore
 PrivilegedAction<Integer> p = () -> 42;
 ```
 
-#Diamond operator
+# Diamond operator
 Those of you who are familiar with Java’s evolution will recall that Java 7 had already
 introduced the idea of types being inferred from context with generic inference using the
 diamond operator (<>) (this idea can be found even earlier with generic methods). A given class
@@ -206,7 +206,7 @@ argument will be inferred as exemplified here:
 List<Integer> listOfIntegers = new ArrayList<>();
 ```
 
-#Type Inference
+# Type Inference
 The Java compiler deduces what functional
 interface to associate with a lambda expression from its surrounding context (the target type),
 meaning it can also deduce an appropriate signature for the lambda because the function
@@ -218,7 +218,7 @@ List<Apple> greenApples = filter(inventory, a -> "green".equals(a.color()));
 Comparator<Apple> c = (a1, a2) -> a1.getWeight().compareTo(a2.getWeight());
 ```
 
-#Using Local Variables
+# Using Local Variables
 Lambdas can access free variables i.e. variables from outer scope. These lambdas are called capturing lambdas.
 Lambdas can access instance and static variables without any restrictions, but the local variables have to be explicitly
 declared final or effectively final.
