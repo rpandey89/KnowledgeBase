@@ -1,0 +1,22 @@
+{
+    //--fix only work on .js files
+    "env": {
+        "es6": true,
+        "browser": true
+        //"node": true,
+        //"jquery": true
+    },
+    //"extends": "eslint:recommended",
+    "extends": "airbnb",
+    "rules": {
+        "no-console": 0,
+        // 0, 1, 2 off, warning, error
+        "no-unused-vars": 0,
+        "no-var": 0,
+        "comma-dangle": 0
+    },
+    "plugins": [
+        "html",
+        "markdown"
+    ]
+}

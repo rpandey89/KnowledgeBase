@@ -1,9 +1,11 @@
-//Calls functions from sum.js then prints the result
-// CommonJS
-// const sum = require('./sum');
-import sum from './sum';
-//the file gets executed
-import './image_viewer';
+const button = document.createElement('button');
+button.innerText = 'Click me!';
 
-const total = sum(10, 5);
-console.log("total ", total);
+button.onclick = () => {
+    //When we use System.import, webpack will split the code into files and add all the additional code into another file
+    System.import('./image_viewer.js').then(module => {
+        module.default();
+    });
+};
+
+document.body.appendChild(button);

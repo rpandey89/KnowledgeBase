@@ -234,3 +234,40 @@ rather than access to the original variable. This makes no difference if the loc
 assigned to only once—hence the restriction.
 Second, this restriction also discourages typical imperative programming patterns (which, as we
 explain in later chapters, prevent easy parallelization) that mutate an outer variable.
+
+# Closure
+Functions defined inside another function, and that have access and can modify variables defined in the outside function.
+Closures can be passed as an argument to other functions.
+
+# Method References
+Method references let you reuse existing method definitions and pass them just like lambdas.
+
+```
+Lambdas:
+inventory.sort((Apple a1, Apples a2) -> a1.getWeithg().compareTo(a2.getWeight()));
+Method Reference:
+inventory.sort(comparing(Apple::getWeight))
+```
+
+If a lambda is referring to a method then we can directly call that method using method references to improve readability.
+Few more examples:
+
+<table>
+<tr><td>Lambda</td><td>Method reference equivalent</td></tr>
+<tr><td>(Apple a) -> a.getWeight()</td><td>Apple::getWeight</td></tr>
+<tr><td>() -> Thread.currentThread().dumpStack()</td><td>Thread.currentThread()::dumpStack</td></tr>
+<tr><td>(str, i) -> str.substring(i)</td><td>String::substring</td></tr>
+<tr><td>(String s) -> System.out.println(s)</td><td>System.out::println</td></tr>
+</table>
+
+There are three main kinds of method references:
+
+1. Reference to static method - Integer::parseInt
+1. Reference to an instance method of an arbitrary type - String::length
+1. Reference to an instance method of an existing object - expTransaction::getValue
+
+Note that the compiler goes through a similar type-checking process as for lambda expressions
+to figure out whether a method reference is valid with a given functional interface: the signature
+of the method reference has to match the type of the context.
+
+# Constructor References

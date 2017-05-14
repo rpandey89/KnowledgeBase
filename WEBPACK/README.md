@@ -81,6 +81,7 @@ babel-loader - Teaches babel how to work with webpack
 babel-core - Knows how to take in code, parse it, and generate some output files
 babel-preset-env - Ruleset for telling babel exactly what pieces of ES2015/6/7 syntax to look for, and how to turn it
 into ES5 code
+react - transpiles jsx to js code
 
 Note: Webpack does not include all the js files in the bundle.js file. A file has to be imported in another js file.
 
@@ -89,9 +90,31 @@ css-loader - Knows how to deal with CSS imports
 style-loader - Takes CSS imports and adds them to the HTML document
 
 - Plugins
-They execute outside the pipeline of webpack
+They execute outside the pipeline of webpack. They look at the total sum of input or total sum of output that is going to webpack.
 
 - Image
 image-webpack-loader - compacts the image
 url-loader - if the image is small, include in bundle.js as raw data otherwise include as a separate file in the output
 dir. It emits the url of the file with 'output.publicPath' prepended to the URL.
+
+
+### Code Splitting
+Two buckets:
+Our Code - Code written by us
+Vendor Code - 3rd party module code
+
+How browser caching of assets works
+1st visit - file_z.js -> Have I downloaded this before -> No! -> Download it from server
+Next visit - file_z.js -> Have I downloaded this before -> Yes! -> Great, use the cached file. No need to download anything.
+
+Dependency updates happen less frequently than our codebase updates.
+
+- Code Splitting with React Router
+
+### Webpack-Dev-Server
+Development server is about developing client side app with zero server side logic
+Changes only the module which has changed in the vendor or bundle output. This increases the build time.
+Nothing is saved to the dir when we run the server. Files only exist in memory as part of server.
+Hence, it is only for development and not for production.
+
+```webpack -p - automatically minifies the js code for prod```

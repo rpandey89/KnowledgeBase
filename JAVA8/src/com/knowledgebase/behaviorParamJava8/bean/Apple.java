@@ -1,9 +1,11 @@
 package com.knowledgebase.behaviorParamJava8.bean;
 
+import java.util.Comparator;
+
 /**
  * Created by rahul.pandey on 4/17/17.
  */
-public class Apple {
+public class Apple implements Comparable<Apple> {
 
     private int id;
     private String color;
@@ -39,4 +41,13 @@ public class Apple {
         this.weight = weight;
     }
 
+    @Override
+    public int compareTo(Apple a) {
+        if (this.getWeight() > a.getWeight()) {
+            return 1;
+        } else if (this.getWeight() == a.getWeight()) {
+            return 0;
+        }
+        return -1;
+    }
 }
